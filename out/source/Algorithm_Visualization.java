@@ -25,12 +25,16 @@ public class Algorithm_Visualization extends PApplet {
 // ----------------------------------------------------------------------------------------------------------------
 
 // Window Size
-public int screenWidth = 2000;
-public int screenHeight = 1000;
+// public int screenWidth = 2000;
+// public int screenHeight = 1000;
+
+// Window Size Laptop
+public int screenWidth = 900;
+public int screenHeight = 600;
 
 // Sort settings
-public int arrayLength = 100;
-public int waitLength = 0;
+public int arrayLength = 50;
+public int waitLengthMilliseconds  = 100;
 
 // Sort Methods
 public BubbleSort bubble;
@@ -44,6 +48,8 @@ public MergeSort merge;
 
 public void settings() {
   size(screenWidth, screenHeight);
+  // Fix for linux laptop
+  System.setProperty("jogl.disable.openglcore", "false");
 }
 
 public void setup() {
@@ -57,13 +63,13 @@ public void setup() {
   insertion = new InsertionSort(arrayLength,screenWidth,screenHeight);
   merge = new MergeSort(arrayLength,screenWidth,screenHeight);
 
-  insertion.printArray();
+  bubble.printArray();
 
   background(255);
 }
 
 public void draw() {
-  insertionSort();
+  bubbleSort();
 }
 
 
@@ -106,7 +112,7 @@ public void insertionSort() {
   
   if(!insertion.isSorted()) {
 
-    wait(0);
+    wait(waitLengthMilliseconds);
 
     if(i < arrayLength) {
 
@@ -161,7 +167,7 @@ public void selectionSort() {
   
   if(!selection.isSorted()) {
     
-    wait(50);
+    wait(waitLengthMilliseconds);
     if(i<arrayLength) {
       if(j == 0) {
         selection.setMinIndex(i);
@@ -203,7 +209,7 @@ public void bubbleSort() {
   if(!bubble.isSorted()) {
 
     if(i < arrayLength - 1) {
-      wait(waitLength);
+      wait(waitLengthMilliseconds);
       background(255);
       bubble.draw();
       bubble.drawSelectedBar(i);
@@ -337,6 +343,7 @@ public class InsertionSort {
   // Fields
   private int[] array;
   private float barWidth;
+  private int barHeight;
   private int screenHeight;
   private final int MARGIN = 10;
   private int key;
@@ -382,11 +389,15 @@ public class InsertionSort {
     this.array[j + 1] = getKey();
   }
 
+  // private void setBarHeight(int i) {
+  //   this.barHeight;
+  // }
+
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Getters ******************
 // ----------------------------------------------------------------------------------------------------------------
 
-  private int getBarHeight(int i) {
+  public int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
   }
 

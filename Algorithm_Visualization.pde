@@ -27,6 +27,7 @@ public MergeSort merge;
 
 public void settings() {
   size(screenWidth, screenHeight);
+  
   // Fix for linux laptop
   System.setProperty("jogl.disable.openglcore", "false");
 }

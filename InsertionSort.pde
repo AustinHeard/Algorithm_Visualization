@@ -5,6 +5,7 @@ public class InsertionSort {
   // Fields
   private int[] array;
   private float barWidth;
+  private int barHeight;
   private int screenHeight;
   private final int MARGIN = 10;
   private int key;
@@ -50,11 +51,15 @@ public class InsertionSort {
     this.array[j + 1] = getKey();
   }
 
+  // private void setBarHeight(int i) {
+  //   this.barHeight;
+  // }
+
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Getters ******************
 // ----------------------------------------------------------------------------------------------------------------
 
-  private int getBarHeight(int i) {
+  public int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
   }
 
