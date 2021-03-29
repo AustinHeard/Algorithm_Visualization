@@ -1,4 +1,4 @@
-class MergeSort {
+public class MergeSort {
 
   // Fields
   private int[] array;
@@ -6,11 +6,15 @@ class MergeSort {
   private int screenHeight;
   private final int MARGIN = 10;
 
-  public MergeSort  (int length, int screenWidth, int screenHeight) {
+  public MergeSort (int length, int screenWidth, int screenHeight) {
     setArray(length);
     setBarWidth(length,screenWidth);
     setScreenHeight(screenHeight);
   }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setters ******************
+// ----------------------------------------------------------------------------------------------------------------
 
   private void setArray(int length) {
     Random rand = new Random();
@@ -21,24 +25,32 @@ class MergeSort {
       array[i] = rand.nextInt(length) + 1;
     }
   }
-
-  public void printArray(){
-    println(Arrays.toString(array));
-  }
-
-  private void setBarWidth(int length, int screenWidth){
+  
+  private void setBarWidth(int length, int screenWidth) {
     barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
   }
 
-  private void setScreenHeight(int screenHeight){
+  private void setScreenHeight(int screenHeight) {
     this.screenHeight = screenHeight;
   }
 
-  private int getBarHeight(int i){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Getters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  private int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
   }
+
+  public void printArray() {
+    println(Arrays.toString(array));
+  }
   
-  public void draw(){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void draw() {
 
     // Sets color and stroke of bars
     fill(0,0,255);
@@ -47,7 +59,7 @@ class MergeSort {
     rectMode(CORNERS);
 
     // Draws bars
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
     }
 
@@ -56,7 +68,7 @@ class MergeSort {
     textSize(17);
 
     // Draws Numbers
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
     }
     

@@ -1,6 +1,6 @@
 import java.util.Random;
 
-class BubbleSort {
+public class BubbleSort {
 
   // Fields
   private int[] array;
@@ -15,6 +15,10 @@ class BubbleSort {
     setScreenHeight(screenHeight);
   }
 
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
   private void setArray(int length) {
     Random rand = new Random();
 
@@ -25,20 +29,28 @@ class BubbleSort {
     }
   }
 
-  public void printArray(){
-    println(Arrays.toString(array));
-  }
-
-  private void setBarWidth(int length, int screenWidth){
+  private void setBarWidth(int length, int screenWidth) { 
     barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
   }
 
-  private void setScreenHeight(int screenHeight){
+  private void setScreenHeight(int screenHeight) {
     this.screenHeight = screenHeight;
   }
 
-  private int getBarHeight(int i){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Getters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  private int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
+  }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** ???????????? ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void printArray() {
+    println(Arrays.toString(array));
   }
 
   public boolean isSorted() {
@@ -49,7 +61,7 @@ class BubbleSort {
     return true;
   }
 
-  public void sort(int i){
+  public void sort(int i) {
 
     if (array[i] > array[i+1]) {
       int temp = array[i];
@@ -59,7 +71,11 @@ class BubbleSort {
 
   }
 
-  public void draw(){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void draw() {
 
     // Sets color and stroke of bars
     fill(0,0,255);
@@ -68,7 +84,7 @@ class BubbleSort {
     rectMode(CORNERS);
 
     // Draws bars
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
     }
 
@@ -77,17 +93,18 @@ class BubbleSort {
     textSize(17);
 
     // Draws Numbers
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
     }
     
   }
 
-  public void drawSelectedBar(int i){
+  public void drawSelectedBar(int i) {
     fill(255,0,0);
     stroke(0);
     strokeWeight(2);
     rectMode(CORNERS);
     rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
   }
+
 }// BubbleSort

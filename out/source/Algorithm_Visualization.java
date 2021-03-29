@@ -19,14 +19,28 @@ import java.io.IOException;
 
 public class Algorithm_Visualization extends PApplet {
 
-int screenWidth = 2000;
-int screenHeight = 1000;
-int waitLength = 0;
 
-BubbleSort bubble;
-SelectionSort selection;
-InsertionSort insertion;
-MergeSort merge;
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Global Variables ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+// Window Size
+public int screenWidth = 2000;
+public int screenHeight = 1000;
+
+// Sort settings
+public int arrayLength = 100;
+public int waitLength = 0;
+
+// Sort Methods
+public BubbleSort bubble;
+public SelectionSort selection;
+public InsertionSort insertion;
+public MergeSort merge;
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setup && Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
 
 public void settings() {
   size(screenWidth, screenHeight);
@@ -34,12 +48,17 @@ public void settings() {
 
 public void setup() {
   frameRate(144);
+
+  surface.setTitle("Algorithm Visualization");
   surface.setResizable(true);
+
   bubble = new BubbleSort(arrayLength,screenWidth,screenHeight);
   selection = new SelectionSort(arrayLength,screenWidth,screenHeight);
   insertion = new InsertionSort(arrayLength,screenWidth,screenHeight);
   merge = new MergeSort(arrayLength,screenWidth,screenHeight);
+
   insertion.printArray();
+
   background(255);
 }
 
@@ -48,28 +67,25 @@ public void draw() {
 }
 
 
-public void wait(int ms)
-{
-  try
-  {
+public void wait(int ms) {
+  try {
     Thread.sleep(ms);
-  }
-  catch(InterruptedException ex)
-  {
+  } catch(InterruptedException ex) {
     Thread.currentThread().interrupt();
   }
 }
 
-// ------------------------------------------------------------------------
-//  Sort Algorithms
-// ------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Sort Algorithms ******************
+// ----------------------------------------------------------------------------------------------------------------
 
-int arrayLength = 100;
+
+
 // Global variables for pseudo for loop
-// int i = 1;
-// int j = 0;
+// public int i = 1;
+// public int j = 0;
 
-// public void mergeSort(){
+// public void mergeSort() {
   
 //   if(!merge.isSorted()) {
 
@@ -83,26 +99,26 @@ int arrayLength = 100;
 //   }
 // }
 
-int i = 1;
-int j = 0;
+public int i = 1;
+public int j = 0;
 
-public void insertionSort(){
+public void insertionSort() {
   
   if(!insertion.isSorted()) {
 
     wait(0);
 
-    if(i < arrayLength){
+    if(i < arrayLength) {
 
       // println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
       // insertion.printArray();
 
-      if(insertion.isRangeSorted(i)|| i == 1 || j <= -1){
+      if(insertion.isRangeSorted(i)|| i == 1 || j <= -1) {
         insertion.setKey(i);
         j = i - 1;
       }
 
-      if(j >= 0 && insertion.getArrayElement(j) > insertion.getKey()){
+      if(j >= 0 && insertion.getArrayElement(j) > insertion.getKey()) {
         insertion.setArrayElement(j);
 
         background(255);
@@ -123,7 +139,7 @@ public void insertionSort(){
 
       insertion.setArrayElementToKey(j);
 
-      if(insertion.isRangeSorted(i)){
+      if(insertion.isRangeSorted(i)) {
         i++;
       }
     }
@@ -136,29 +152,29 @@ public void insertionSort(){
     println("Array Sorted!");
     noLoop();
   }
-}
+}// insertionSort
 
-// int i = 0;
-// int j = 0;
+// public int i = 0;
+// public int j = 0;
 
-public void selectionSort(){
+public void selectionSort() {
   
   if(!selection.isSorted()) {
     
     wait(50);
-    if(i<arrayLength){
-      if(j == 0){
+    if(i<arrayLength) {
+      if(j == 0) {
         selection.setMinIndex(i);
         j = i + 1;
       }
-      if(j<arrayLength){
+      if(j<arrayLength) {
         selection.findMinIndex(j);
         background(255);
         selection.draw();
         selection.drawSelectedBar();
         selection.drawSelectedBar(j);
         j++;
-      } else if(j == arrayLength){
+      } else if(j == arrayLength) {
         background(255);
         selection.draw();
         selection.move(i);
@@ -166,7 +182,7 @@ public void selectionSort(){
         j = 0;
         i++;
       }
-    } else if(i == arrayLength - 1){
+    } else if(i == arrayLength - 1) {
       println("borked");
     }
 
@@ -177,16 +193,16 @@ public void selectionSort(){
     println("Array Sorted!");
     noLoop();
   }
-}
+}// selectionSort
 
-// int i = 0;
-// int j = 0;
+// public int i = 0;
+// public int j = 0;
 
-public void bubbleSort(){
+public void bubbleSort() {
   
   if(!bubble.isSorted()) {
 
-    if(i < arrayLength - 1){
+    if(i < arrayLength - 1) {
       wait(waitLength);
       background(255);
       bubble.draw();
@@ -203,10 +219,10 @@ public void bubbleSort(){
     println("Array Sorted!");
     noLoop();
   }
-}
+}// bubbleSort
 
 
-class BubbleSort {
+public class BubbleSort {
 
   // Fields
   private int[] array;
@@ -221,6 +237,10 @@ class BubbleSort {
     setScreenHeight(screenHeight);
   }
 
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
   private void setArray(int length) {
     Random rand = new Random();
 
@@ -231,20 +251,28 @@ class BubbleSort {
     }
   }
 
-  public void printArray(){
-    println(Arrays.toString(array));
-  }
-
-  private void setBarWidth(int length, int screenWidth){
+  private void setBarWidth(int length, int screenWidth) { 
     barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
   }
 
-  private void setScreenHeight(int screenHeight){
+  private void setScreenHeight(int screenHeight) {
     this.screenHeight = screenHeight;
   }
 
-  private int getBarHeight(int i){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Getters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  private int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
+  }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** ???????????? ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void printArray() {
+    println(Arrays.toString(array));
   }
 
   public boolean isSorted() {
@@ -255,7 +283,7 @@ class BubbleSort {
     return true;
   }
 
-  public void sort(int i){
+  public void sort(int i) {
 
     if (array[i] > array[i+1]) {
       int temp = array[i];
@@ -265,7 +293,11 @@ class BubbleSort {
 
   }
 
-  public void draw(){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void draw() {
 
     // Sets color and stroke of bars
     fill(0,0,255);
@@ -274,7 +306,7 @@ class BubbleSort {
     rectMode(CORNERS);
 
     // Draws bars
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
     }
 
@@ -283,29 +315,31 @@ class BubbleSort {
     textSize(17);
 
     // Draws Numbers
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
     }
     
   }
 
-  public void drawSelectedBar(int i){
+  public void drawSelectedBar(int i) {
     fill(255,0,0);
     stroke(0);
     strokeWeight(2);
     rectMode(CORNERS);
     rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
   }
+
 }// BubbleSort
 
 
-class InsertionSort {
+public class InsertionSort {
 
   // Fields
   private int[] array;
   private float barWidth;
   private int screenHeight;
   private final int MARGIN = 10;
+  private int key;
 
 
   public InsertionSort(int length, int screenWidth, int screenHeight) {
@@ -314,6 +348,10 @@ class InsertionSort {
     setScreenHeight(screenHeight);
   }
 
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
   private void setArray(int length) {
     Random rand = new Random();
 
@@ -324,21 +362,45 @@ class InsertionSort {
     }
   }
 
-  public void printArray(){
-    println(Arrays.toString(array));
-  }
-
-  private void setBarWidth(int length, int screenWidth){
+  private void setBarWidth(int length, int screenWidth) {
     barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
   }
 
-  private void setScreenHeight(int screenHeight){
+  private void setScreenHeight(int screenHeight) {
     this.screenHeight = screenHeight;
   }
 
-  private int getBarHeight(int i){
+  public void setKey(int i) {
+    this.key = array[i];
+  }
+
+  public void setArrayElement(int j) {
+    this.array[j + 1] = getArrayElement(j);
+  }
+
+  public void setArrayElementToKey(int j) {
+    this.array[j + 1] = getKey();
+  }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Getters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  private int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
   }
+
+  public int getKey() {
+    return key;
+  }
+
+  public int getArrayElement(int j) {
+    return array[j];
+  }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** ???????????? ******************
+// ----------------------------------------------------------------------------------------------------------------
 
   public boolean isSorted() {
     for (int i = 0; i < array.length - 1; i++) {
@@ -346,6 +408,10 @@ class InsertionSort {
         return false;
     }
     return true;
+  }
+
+  public void printArray() {
+    println(Arrays.toString(array));
   }
 
   public boolean isRangeSorted(int i) {
@@ -354,14 +420,19 @@ class InsertionSort {
       if (array[j] >= array[j - 1])
         count++;
     }
-    if(count == i){
+    if(count == i) {
       return true;
     } else {
       return false;
     }
   }
 
-  public void draw(){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+
+  public void draw() {
 
     // Sets color and stroke of bars
     fill(0,0,255);
@@ -370,7 +441,7 @@ class InsertionSort {
     rectMode(CORNERS);
 
     // Draws bars
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
     }
 
@@ -379,13 +450,13 @@ class InsertionSort {
     textSize(17);
 
     // Draws Numbers
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
     }
     
   }
 
-  public void drawKeyBar(int i){
+  public void drawKeyBar(int i) {
     fill(0,255,0);
     stroke(0);
     strokeWeight(2);
@@ -393,7 +464,7 @@ class InsertionSort {
     rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(j));
   }
 
-  public void drawSelectedBar(int i){
+  public void drawSelectedBar(int i) {
     fill(255,0,0);
     stroke(0);
     strokeWeight(2);
@@ -401,34 +472,8 @@ class InsertionSort {
     rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
   }
 
-int key;
-
-  public void setKey(int i){
-    this.key = array[i];
-  }
-
-  public void setArrayElement(int j){
-    this.array[j + 1] = getArrayElement(j);
-  }
-  public void setArrayElementToKey(int j){
-    this.array[j + 1] = getKey();
-  }
-
-  public int getKey(){
-    return key;
-  }
-
-  public int getArrayElement(int j){
-    return array[j];
-  }
-
-
-
-
-
-
 }// InsertionSort
-class MergeSort {
+public class MergeSort {
 
   // Fields
   private int[] array;
@@ -436,11 +481,15 @@ class MergeSort {
   private int screenHeight;
   private final int MARGIN = 10;
 
-  public MergeSort  (int length, int screenWidth, int screenHeight) {
+  public MergeSort (int length, int screenWidth, int screenHeight) {
     setArray(length);
     setBarWidth(length,screenWidth);
     setScreenHeight(screenHeight);
   }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setters ******************
+// ----------------------------------------------------------------------------------------------------------------
 
   private void setArray(int length) {
     Random rand = new Random();
@@ -451,24 +500,32 @@ class MergeSort {
       array[i] = rand.nextInt(length) + 1;
     }
   }
-
-  public void printArray(){
-    println(Arrays.toString(array));
-  }
-
-  private void setBarWidth(int length, int screenWidth){
+  
+  private void setBarWidth(int length, int screenWidth) {
     barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
   }
 
-  private void setScreenHeight(int screenHeight){
+  private void setScreenHeight(int screenHeight) {
     this.screenHeight = screenHeight;
   }
 
-  private int getBarHeight(int i){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Getters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  private int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
   }
+
+  public void printArray() {
+    println(Arrays.toString(array));
+  }
   
-  public void draw(){
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void draw() {
 
     // Sets color and stroke of bars
     fill(0,0,255);
@@ -477,7 +534,7 @@ class MergeSort {
     rectMode(CORNERS);
 
     // Draws bars
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
     }
 
@@ -486,7 +543,7 @@ class MergeSort {
     textSize(17);
 
     // Draws Numbers
-    for (int i = 0; i < array.length; i++){
+    for (int i = 0; i < array.length; i++) {
       text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
     }
     
@@ -495,19 +552,24 @@ class MergeSort {
  
  
 
-class SelectionSort {
+public class SelectionSort {
 
   // Fields
   private int[] array;
+  private final int MARGIN = 10;
   private float barWidth;
   private int screenHeight;
-  private final int MARGIN = 10;
+  private int minIndex;
 
   public SelectionSort (int length, int screenWidth, int screenHeight) {
     setArray(length);
     setBarWidth(length,screenWidth);
     setScreenHeight(screenHeight);
   }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setters ******************
+// ----------------------------------------------------------------------------------------------------------------
 
   private void setArray(int length) {
     Random rand = new Random();
@@ -519,20 +581,32 @@ class SelectionSort {
     }
   }
 
-  public void printArray(){
-    println(Arrays.toString(array));
-  }
-
-  private void setBarWidth(int length, int screenWidth){
+  private void setBarWidth(int length, int screenWidth) {
     barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
   }
 
-  private void setScreenHeight(int screenHeight){
+  private void setScreenHeight(int screenHeight) {
     this.screenHeight = screenHeight;
   }
 
-  private int getBarHeight(int i){
+  public void setMinIndex(int i) {
+    this.minIndex = i;
+  }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Getters ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  private int getBarHeight(int i) {
     return array[i] * (int) barWidth/2;
+  }
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** ???????????? ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void printArray() {
+    println(Arrays.toString(array));
   }
 
   public boolean isSorted() {
@@ -543,33 +617,9 @@ class SelectionSort {
     return true;
   }
 
-  public void draw(){
+  public void sort() {
 
-    // Sets color and stroke of bars
-    fill(0,0,255);
-    stroke(0);
-    strokeWeight(2);
-    rectMode(CORNERS);
-
-    // Draws bars
-    for (int i = 0; i < array.length; i++){
-      rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
-    }
-
-    // Sets color and size of numbers
-    fill(40);
-    textSize(17);
-
-    // Draws Numbers
-    for (int i = 0; i < array.length; i++){
-      text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
-    }
-    
-  }
-
-  public void sort(){
-
-    for (int i = 0; i < arrayLength-1; i++){ 
+    for (int i = 0; i < arrayLength-1; i++) { 
       setMinIndex(i);
       println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
       for (int j = i+1; j < arrayLength; j++) 
@@ -579,14 +629,9 @@ class SelectionSort {
     }
   }
 
-  private int minIndex;
 
-  public void setMinIndex(int i){
-    this.minIndex = i;
-  }
-
-  public void findMinIndex(int j){
-    if(array[j] < array[minIndex]){
+  public void findMinIndex(int j) {
+    if(array[j] < array[minIndex]) {
       this.minIndex = j;
     }
     
@@ -594,14 +639,41 @@ class SelectionSort {
     println("MinIndex: " + this.minIndex);
   }
 
-  public void move(int i){
+  public void move(int i) {
     int temp = array[minIndex]; 
     array[minIndex] = array[i]; 
     array[i] = temp; 
   }
 
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+  public void draw() {
+
+    // Sets color and stroke of bars
+    fill(0,0,255);
+    stroke(0);
+    strokeWeight(2);
+    rectMode(CORNERS);
+
+    // Draws bars
+    for (int i = 0; i < array.length; i++) {
+      rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
+    }
+
+    // Sets color and size of numbers
+    fill(40);
+    textSize(17);
+
+    // Draws Numbers
+    for (int i = 0; i < array.length; i++) {
+      text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
+    }
+    
+  }
   
-  public void drawSelectedBar(){
+  public void drawSelectedBar() {
     fill(255,0,0);
     stroke(0);
     strokeWeight(2);
@@ -609,7 +681,7 @@ class SelectionSort {
     rect(minIndex*barWidth+minIndex*MARGIN + MARGIN, screenHeight, minIndex*barWidth+minIndex*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(minIndex));
   }
 
-  public void drawSelectedBar(int j){
+  public void drawSelectedBar(int j) {
     fill(0,255,0);
     stroke(0);
     strokeWeight(2);

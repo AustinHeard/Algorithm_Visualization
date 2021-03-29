@@ -1,54 +1,70 @@
-int screenWidth = 2000;
-int screenHeight = 1000;
-int waitLength = 0;
 
-BubbleSort bubble;
-SelectionSort selection;
-InsertionSort insertion;
-MergeSort merge;
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Global Variables ******************
+// ----------------------------------------------------------------------------------------------------------------
 
-void settings() {
+// Window Size
+public int screenWidth = 2000;
+public int screenHeight = 1000;
+
+// Sort settings
+public int arrayLength = 100;
+public int waitLength = 0;
+
+// Sort Methods
+public BubbleSort bubble;
+public SelectionSort selection;
+public InsertionSort insertion;
+public MergeSort merge;
+
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Setup && Draw ******************
+// ----------------------------------------------------------------------------------------------------------------
+
+public void settings() {
   size(screenWidth, screenHeight);
 }
 
-void setup() {
+public void setup() {
   frameRate(144);
+
+  surface.setTitle("Algorithm Visualization");
   surface.setResizable(true);
+
   bubble = new BubbleSort(arrayLength,screenWidth,screenHeight);
   selection = new SelectionSort(arrayLength,screenWidth,screenHeight);
   insertion = new InsertionSort(arrayLength,screenWidth,screenHeight);
   merge = new MergeSort(arrayLength,screenWidth,screenHeight);
+
   insertion.printArray();
+
   background(255);
 }
 
-void draw() {
+public void draw() {
   insertionSort();
 }
 
 
-public void wait(int ms)
-{
-  try
-  {
+public void wait(int ms) {
+  try {
     Thread.sleep(ms);
-  }
-  catch(InterruptedException ex)
-  {
+  } catch(InterruptedException ex) {
     Thread.currentThread().interrupt();
   }
 }
 
-// ------------------------------------------------------------------------
-//  Sort Algorithms
-// ------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** Sort Algorithms ******************
+// ----------------------------------------------------------------------------------------------------------------
 
-int arrayLength = 100;
+
+
 // Global variables for pseudo for loop
-// int i = 1;
-// int j = 0;
+// public int i = 1;
+// public int j = 0;
 
-// public void mergeSort(){
+// public void mergeSort() {
   
 //   if(!merge.isSorted()) {
 
@@ -62,26 +78,26 @@ int arrayLength = 100;
 //   }
 // }
 
-int i = 1;
-int j = 0;
+public int i = 1;
+public int j = 0;
 
-public void insertionSort(){
+public void insertionSort() {
   
   if(!insertion.isSorted()) {
 
     wait(0);
 
-    if(i < arrayLength){
+    if(i < arrayLength) {
 
       // println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
       // insertion.printArray();
 
-      if(insertion.isRangeSorted(i)|| i == 1 || j <= -1){
+      if(insertion.isRangeSorted(i)|| i == 1 || j <= -1) {
         insertion.setKey(i);
         j = i - 1;
       }
 
-      if(j >= 0 && insertion.getArrayElement(j) > insertion.getKey()){
+      if(j >= 0 && insertion.getArrayElement(j) > insertion.getKey()) {
         insertion.setArrayElement(j);
 
         background(255);
@@ -102,7 +118,7 @@ public void insertionSort(){
 
       insertion.setArrayElementToKey(j);
 
-      if(insertion.isRangeSorted(i)){
+      if(insertion.isRangeSorted(i)) {
         i++;
       }
     }
@@ -115,29 +131,29 @@ public void insertionSort(){
     println("Array Sorted!");
     noLoop();
   }
-}
+}// insertionSort
 
-// int i = 0;
-// int j = 0;
+// public int i = 0;
+// public int j = 0;
 
-public void selectionSort(){
+public void selectionSort() {
   
   if(!selection.isSorted()) {
     
     wait(50);
-    if(i<arrayLength){
-      if(j == 0){
+    if(i<arrayLength) {
+      if(j == 0) {
         selection.setMinIndex(i);
         j = i + 1;
       }
-      if(j<arrayLength){
+      if(j<arrayLength) {
         selection.findMinIndex(j);
         background(255);
         selection.draw();
         selection.drawSelectedBar();
         selection.drawSelectedBar(j);
         j++;
-      } else if(j == arrayLength){
+      } else if(j == arrayLength) {
         background(255);
         selection.draw();
         selection.move(i);
@@ -145,7 +161,7 @@ public void selectionSort(){
         j = 0;
         i++;
       }
-    } else if(i == arrayLength - 1){
+    } else if(i == arrayLength - 1) {
       println("borked");
     }
 
@@ -156,16 +172,16 @@ public void selectionSort(){
     println("Array Sorted!");
     noLoop();
   }
-}
+}// selectionSort
 
-// int i = 0;
-// int j = 0;
+// public int i = 0;
+// public int j = 0;
 
-public void bubbleSort(){
+public void bubbleSort() {
   
   if(!bubble.isSorted()) {
 
-    if(i < arrayLength - 1){
+    if(i < arrayLength - 1) {
       wait(waitLength);
       background(255);
       bubble.draw();
@@ -182,4 +198,4 @@ public void bubbleSort(){
     println("Array Sorted!");
     noLoop();
   }
-}
+}// bubbleSort
