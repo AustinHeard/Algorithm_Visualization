@@ -4,12 +4,16 @@
 // ----------------------------------------------------------------------------------------------------------------
 
 // Window Size
-public int screenWidth = 2000;
-public int screenHeight = 1000;
+// public int screenWidth = 2000;
+// public int screenHeight = 1000;
+
+// Window Size Laptop
+public int screenWidth = 900;
+public int screenHeight = 600;
 
 // Sort settings
-public int arrayLength = 100;
-public int waitLength = 0;
+public int arrayLength = 50;
+public int waitLengthMilliseconds  = 100;
 
 // Sort Methods
 public BubbleSort bubble;
@@ -23,6 +27,8 @@ public MergeSort merge;
 
 public void settings() {
   size(screenWidth, screenHeight);
+  // Fix for linux laptop
+  System.setProperty("jogl.disable.openglcore", "false");
 }
 
 public void setup() {
@@ -36,13 +42,13 @@ public void setup() {
   insertion = new InsertionSort(arrayLength,screenWidth,screenHeight);
   merge = new MergeSort(arrayLength,screenWidth,screenHeight);
 
-  insertion.printArray();
+  bubble.printArray();
 
   background(255);
 }
 
 public void draw() {
-  insertionSort();
+  bubbleSort();
 }
 
 
@@ -58,34 +64,87 @@ public void wait(int ms) {
 //  ****************** Sort Algorithms ******************
 // ----------------------------------------------------------------------------------------------------------------
 
+// Bubble Sort ---------------------------------------
 
+public int i = 0;
+public int j = 0;
 
-// Global variables for pseudo for loop
-// public int i = 1;
+public void bubbleSort() {
+  
+  if(!bubble.isSorted()) {
+
+    if(i < arrayLength - 1) {
+      wait(waitLengthMilliseconds);
+      background(255);
+      bubble.draw();
+      bubble.drawSelectedBar(i);
+      bubble.sort(i);
+      i++;
+    }
+    if(i == arrayLength - 1)
+      i = 0;
+  } else {
+    background(255);
+    bubble.draw();
+    bubble.printArray();
+    println("Array Sorted!");
+    noLoop();
+  }
+}// bubbleSort
+
+// Selection Sort ---------------------------------------
+
+// public int i = 0;
 // public int j = 0;
 
-// public void mergeSort() {
+public void selectionSort() {
   
-//   if(!merge.isSorted()) {
-
+  if(!selection.isSorted()) {
     
-//   } else {
-//     background(255);
-//     merge.draw();
-//     merge.printArray();
-//     println("Array Sorted!");
-//     noLoop();
-//   }
-// }
+    wait(waitLengthMilliseconds);
+    if(i<arrayLength) {
+      if(j == 0) {
+        selection.setMinIndex(i);
+        j = i + 1;
+      }
+      if(j<arrayLength) {
+        selection.findMinIndex(j);
+        background(255);
+        selection.draw();
+        selection.drawSelectedBar();
+        selection.drawSelectedBar(j);
+        j++;
+      } else if(j == arrayLength) {
+        background(255);
+        selection.draw();
+        selection.move(i);
+        println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        j = 0;
+        i++;
+      }
+    } else if(i == arrayLength - 1) {
+      println("borked");
+    }
 
-public int i = 1;
-public int j = 0;
+  } else {
+    background(255);
+    selection.draw();
+    selection.printArray();
+    println("Array Sorted!");
+    noLoop();
+  }
+}// selectionSort
+
+// Insertion Sort ---------------------------------------
+
+// public int i = 1;
+// public int j = 0;
 
 public void insertionSort() {
   
   if(!insertion.isSorted()) {
 
-    wait(0);
+    wait(waitLengthMilliseconds);
 
     if(i < arrayLength) {
 
@@ -133,69 +192,22 @@ public void insertionSort() {
   }
 }// insertionSort
 
-// public int i = 0;
+// Merge Sort ---------------------------------------
+
+// Global variables for pseudo for loop
+// public int i = 1;
 // public int j = 0;
 
-public void selectionSort() {
+// public void mergeSort() {
   
-  if(!selection.isSorted()) {
+//   if(!merge.isSorted()) {
+
     
-    wait(50);
-    if(i<arrayLength) {
-      if(j == 0) {
-        selection.setMinIndex(i);
-        j = i + 1;
-      }
-      if(j<arrayLength) {
-        selection.findMinIndex(j);
-        background(255);
-        selection.draw();
-        selection.drawSelectedBar();
-        selection.drawSelectedBar(j);
-        j++;
-      } else if(j == arrayLength) {
-        background(255);
-        selection.draw();
-        selection.move(i);
-        println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        j = 0;
-        i++;
-      }
-    } else if(i == arrayLength - 1) {
-      println("borked");
-    }
-
-  } else {
-    background(255);
-    selection.draw();
-    selection.printArray();
-    println("Array Sorted!");
-    noLoop();
-  }
-}// selectionSort
-
-// public int i = 0;
-// public int j = 0;
-
-public void bubbleSort() {
-  
-  if(!bubble.isSorted()) {
-
-    if(i < arrayLength - 1) {
-      wait(waitLength);
-      background(255);
-      bubble.draw();
-      bubble.drawSelectedBar(i);
-      bubble.sort(i);
-      i++;
-    }
-    if(i == arrayLength - 1)
-      i = 0;
-  } else {
-    background(255);
-    bubble.draw();
-    bubble.printArray();
-    println("Array Sorted!");
-    noLoop();
-  }
-}// bubbleSort
+//   } else {
+//     background(255);
+//     merge.draw();
+//     merge.printArray();
+//     println("Array Sorted!");
+//     noLoop();
+//   }
+// } // mergeSort
