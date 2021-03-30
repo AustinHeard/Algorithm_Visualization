@@ -9,9 +9,10 @@ public class BubbleSort {
   private final int MARGIN = 10;
 
 
-  public BubbleSort(int length, int screenWidth, int screenHeight) {
-    setArray(length);
-    setBarWidth(length,screenWidth);
+  public BubbleSort(int[] array, int screenWidth, int screenHeight) {
+    //setArray(length);
+    this.array = array;
+    setBarWidth(array.length,screenWidth);
     setScreenHeight(screenHeight);
   }
 
@@ -88,14 +89,14 @@ public class BubbleSort {
       rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
     }
 
-    // Sets color and size of numbers
-    fill(40);
-    textSize(17);
 
     // Draws Numbers
-    for (int i = 0; i < array.length; i++) {
-      text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
-    }
+    
+    // fill(40);
+    // textSize(17);
+    // for (int i = 0; i < array.length; i++) {
+    //   text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
+    // }
     
   }
 
