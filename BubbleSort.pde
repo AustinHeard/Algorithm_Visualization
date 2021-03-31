@@ -7,6 +7,7 @@ public class BubbleSort {
 	private int screenHeight;
 	private float barHeight;
 	private float barWidth;
+	private float barX;
 	private final int MARGIN = 10;
 
 
@@ -36,6 +37,10 @@ public class BubbleSort {
 		this.barHeight = array[i] * (int) barWidth/2;
 	}// setBarHeight
 
+	public void setBarX(int i){
+		this.barX = i*barWidth + i*MARGIN + MARGIN;
+	}// setBarX
+
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Getters ******************
 // ----------------------------------------------------------------------------------------------------------------
@@ -58,6 +63,10 @@ public class BubbleSort {
 	public void printArray() {
 		println(Arrays.toString(array));
 	}// printArray
+
+	public float getBarX() {
+		return this.barX;
+	}// getBarX
 
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Show & Sort Methods ******************
@@ -120,17 +129,19 @@ public class BubbleSort {
 		rectMode(CORNERS);
 		for (int i = 0; i < array.length; i++) {
 			setBarHeight(i);
-			rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight());
+			setBarX(i);
+			rect(getBarX(), screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight());
 		}
 	}// drawBars
 
-	private void drawSelectedBar(int i) {
+	public void drawSelectedBar(int i) {
 		fill(255,0,0);
 		stroke(0);
 		strokeWeight(2);
 		rectMode(CORNERS);
 		setBarHeight(i);
-		rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight());
+		setBarX(i);
+		rect(getBarX(), screenHeight, i*barWidth + i*MARGIN + MARGIN + barWidth, screenHeight - getBarHeight());
 	}// drawSelectedBar
 
 	private void drawBarNumbers() {
