@@ -10,9 +10,9 @@ public class SelectionSort {
 	private int screenHeight;
 	private int minIndex;
 
-	public SelectionSort (int length, int screenWidth, int screenHeight) {
-		setArray(length);
-		setBarWidth(length,screenWidth);
+	public SelectionSort (int[] array, int screenWidth, int screenHeight) {
+		setArray(array);
+		setBarWidth(array.length,screenWidth);
 		setScreenHeight(screenHeight);
 	}
 
@@ -20,14 +20,8 @@ public class SelectionSort {
 //  ****************** Setters ******************
 // ----------------------------------------------------------------------------------------------------------------
 
-	private void setArray(int length) {
-		Random rand = new Random();
-
-		array = new int[length];
-
-		for (int i = 0; i < array.length; i++) {
-			array[i] = rand.nextInt(length) + 1;
-		}
+	private void setArray(int[] array) {
+		this.array = array;
 	}
 
 	private void setBarWidth(int length, int screenWidth) {
@@ -58,6 +52,14 @@ public class SelectionSort {
 		println(Arrays.toString(array));
 	}
 
+	public void wait(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+	}
+
 	public boolean isSorted() {
 		for (int i = 0; i < array.length - 1; i++) {
 			if (array[i] > array[i + 1])
@@ -66,26 +68,61 @@ public class SelectionSort {
 		return true;
 	}
 
+	public int i = 0;
+	public int j = 0;
+
 	public void sort() {
+	
+		if(!isSorted()) {
+			
+			wait(waitLengthMilliseconds);
+			if(i<arrayLength) {
+				if(j == 0) {
+					setMinIndex(i);
+					j = i + 1;
+				}
+				if(j<arrayLength) {
+					findMinIndex(j);
+					background(255);
+					draw();
+					drawSelectedBar();
+					drawSelectedBar(j);
+					j++;
+				} else if(j == arrayLength) {
+					background(255);
+					draw();
+					move(i);
+					j = 0;
+					i++;
+				}
+			} else if(i == arrayLength - 1) {
+				println("borked");
+			}
+
+		} else {
+			background(255);
+			draw();
+			printArray();
+			println("Array Sorted!");
+			noLoop();
+		}
+	}// sort
+
+	public void sortArray() {
 
 		for (int i = 0; i < arrayLength-1; i++) { 
 			setMinIndex(i);
-			println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			for (int j = i+1; j < arrayLength; j++) 
 				findMinIndex(j); 
 	
 			move(i);
 		}
-	}
+	}// sortArray
 
 
 	public void findMinIndex(int j) {
-		if(array[j] < array[minIndex]) {
+		if(array[j] < array[minIndex])
 			this.minIndex = j;
-		}
-		
-		println("Min: " + array[minIndex]);
-		println("MinIndex: " + this.minIndex);
 	}
 
 	public void move(int i) {
@@ -107,19 +144,8 @@ public class SelectionSort {
 		rectMode(CORNERS);
 
 		// Draws bars
-		for (int i = 0; i < array.length; i++) {
-			rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
-		}
-
-		// Sets color and size of numbers
-		fill(40);
-		textSize(17);
-
-		// Draws Numbers
-		for (int i = 0; i < array.length; i++) {
-			text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight(i) - 20);
-		}
-		
+		for (int i = 0; i < array.length; i++)
+			rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));	
 	}
 	
 	public void drawSelectedBar() {

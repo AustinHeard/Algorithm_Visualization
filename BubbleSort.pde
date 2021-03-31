@@ -10,7 +10,6 @@ public class BubbleSort {
 
 
 	public BubbleSort(int[] array, int screenWidth, int screenHeight) {
-		//setArray(length);
 		this.array = array;
 		setBarWidth(array.length,screenWidth);
 		setScreenHeight(screenHeight);
@@ -42,17 +41,16 @@ public class BubbleSort {
 //  ****************** Getters ******************
 // ----------------------------------------------------------------------------------------------------------------
 
-	private int getBarHeight(int i) {
+	public int getBarHeight(int i) {
 		return array[i] * (int) barWidth/2;
 	}
 
+	public int[] getArray(){
+		return array;
+	}
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** ???????????? ******************
 // ----------------------------------------------------------------------------------------------------------------
-
-	public void printArray() {
-		println(Arrays.toString(array));
-	}
 
 	public boolean isSorted() {
 		for (int i = 0; i < array.length - 1; i++) {
@@ -62,14 +60,56 @@ public class BubbleSort {
 		return true;
 	}
 
-	public void sort(int i) {
+	public void wait(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+	}
 
+	public int i = 0;
+	public int j = 0;
+
+	public void sort() {
+
+		if(!bubble.isSorted()) {
+
+			if(i < arrayLength - 1) {
+				wait(waitLengthMilliseconds);
+				background(255);
+				draw();
+				drawSelectedBar(i);
+				sortArray();
+				i++;
+			}
+
+			if(i == arrayLength - 1)
+				i = 0;
+			} else {
+				background(255);
+				draw();
+				printArray(getArray());
+				println("Array Sorted!");
+				noLoop();
+			}
+
+
+		// Sort Algorithm
+		// if (array[i] > array[i+1]) {
+		// 	int temp = array[i];
+		// 	array[i] = array[i+1];
+		// 	array[i+1] = temp;
+		// }
+
+	}
+
+	private void sortArray() {
 		if (array[i] > array[i+1]) {
 			int temp = array[i];
 			array[i] = array[i+1];
 			array[i+1] = temp;
 		}
-
 	}
 
 // ----------------------------------------------------------------------------------------------------------------

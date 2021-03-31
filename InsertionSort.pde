@@ -2,58 +2,52 @@ import java.util.Random;
 
 public class InsertionSort {
 
-    // Fields
-    private int[] array;
-    private float barWidth;
-    private int barHeight;
-    private int screenHeight;
-    private final int MARGIN = 10;
-    private int key;
+	// Fields
+	private int[] array;
+	private float barWidth;
+	private int barHeight;
+	private int screenHeight;
+	private final int MARGIN = 10;
+	private int key;
 
 
-    public InsertionSort(int[] array, int screenWidth, int screenHeight) {
-        this.array = array;
-        setBarWidth(array.length,screenWidth);
-        setScreenHeight(screenHeight);
-    }
+	public InsertionSort(int[] array, int screenWidth, int screenHeight) {
+		setArray(array);
+		setBarWidth(array.length,screenWidth);
+		setScreenHeight(screenHeight);
+	}
 
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Setters ******************
 // ----------------------------------------------------------------------------------------------------------------
 
-    private void setArray(int length) {
-        Random rand = new Random();
+	private void setArray(int[] array) {
+		this.array = array;
+	}
 
-        array = new int[length];
+	private void setBarWidth(int length, int screenWidth) {
+		barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
+	}
 
-        for (int i = 0; i < array.length; i++) {
-        	array[i] = rand.nextInt(length) + 1;
-        }
-    }
+	private void setScreenHeight(int screenHeight) {
+		this.screenHeight = screenHeight;
+	}
 
-    private void setBarWidth(int length, int screenWidth) {
-    	barWidth = (float) (screenWidth - (MARGIN*length) - MARGIN) / (length) ;
-    }
+	public void setKey(int i) {
+		this.key = array[i];
+	}
 
-    private void setScreenHeight(int screenHeight) {
-    	this.screenHeight = screenHeight;
-    }
+	public void setArrayElement(int j) {
+		this.array[j + 1] = getArrayElement(j);
+	}
 
-    public void setKey(int i) {
-    	this.key = array[i];
-    }
+	public void setArrayElementToKey(int j) {
+		this.array[j + 1] = getKey();
+	}
 
-    public void setArrayElement(int j) {
-    	this.array[j + 1] = getArrayElement(j);
-    }
-
-    public void setArrayElementToKey(int j) {
-    	this.array[j + 1] = getKey();
-    }
-
-    // private void setBarHeight(int i) {
-    // 		this.barHeight;
-    // }
+	// private void setBarHeight(int i) {
+	// 		this.barHeight;
+	// }
 
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Getters ******************
@@ -83,6 +77,14 @@ public class InsertionSort {
 		return true;
 	}
 
+	public void wait(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch(InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+	}
+
 	public void printArray() {
 		println(Arrays.toString(array));
 	}
@@ -97,6 +99,49 @@ public class InsertionSort {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public int i = 1;
+	public int j = 0;
+
+	public void sort() {
+
+		if(!isSorted()) {
+
+			wait(waitLengthMilliseconds);
+
+			if(i < arrayLength) {
+
+				if(isRangeSorted(i)|| i == 1 || j <= -1) {
+					setKey(i);
+					j = i - 1;
+				}
+
+				if(j >= 0 && getArrayElement(j) > getKey()) {
+					setArrayElement(j);
+
+					background(255);
+					draw();
+					drawKeyBar(j);
+					drawSelectedBar(i);
+					height -= 1;
+					j -= 1;
+				}
+
+				setArrayElementToKey(j);
+
+				if(isRangeSorted(i)) {
+					i++;
+				}
+			}
+
+		} else {
+			background(255);
+			draw();
+			printArray();
+			println("Array Sorted!");
+			noLoop();
 		}
 	}
 
@@ -134,7 +179,7 @@ public class InsertionSort {
 		stroke(0);
 		strokeWeight(2);
 		rectMode(CORNERS);
-		rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(j));
+		rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight(i));
 	}
 
 	public void drawSelectedBar(int i) {

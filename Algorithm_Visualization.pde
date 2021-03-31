@@ -18,13 +18,13 @@ public boolean insertionSort = true;
 public boolean mergeSort = false;
 public int[] array;
 public int arrayLength = 50;
-public int waitLengthMilliseconds  = 10;
+public int waitLengthMilliseconds  = 0;
 
 // Sort Methods
 public BubbleSort bubble;
 public SelectionSort selection;
 public InsertionSort insertion;
-public MergeSort merge;
+// public MergeSort merge;
 
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Setup && Draw ******************
@@ -53,7 +53,7 @@ public void setup() {
 
 	// Initializes Sorts
 	bubble = new BubbleSort(array, screenWidth, screenHeight);
-	//selection = new SelectionSort(array, screenWidth, screenHeight);
+	selection = new SelectionSort(array, screenWidth, screenHeight);
 	insertion = new InsertionSort(array, screenWidth, screenHeight);
 	//merge = new MergeSort(array, screenWidth, screenHeight);
 
@@ -68,23 +68,15 @@ public void draw() {
 
 public void sort() {
 	if (bubbleSort == true) {
-		bubbleSort();
+        bubble.sort();
 	} else if (selectionSort == true) {
-		// selectionSort();
+        selection.sort();
 	} else if (insertionSort == true) {
-		insertionSort();
+		insertion.sort();
 	} else if (mergeSort == true) {
 		// mergeSort();
 	} else {
 		println("broken");
-	}
-}
-
-public void wait(int ms) {
-	try {
-		Thread.sleep(ms);
-	} catch(InterruptedException ex) {
-		Thread.currentThread().interrupt();
 	}
 }
 
@@ -117,142 +109,8 @@ public void shuffleArray(int[] array) {
 }
 
 // ----------------------------------------------------------------------------------------------------------------
-//  ****************** Stuff moved out of sort files that needs to be organized ******************
-// ----------------------------------------------------------------------------------------------------------------
-
-
-
-// ----------------------------------------------------------------------------------------------------------------
 //  ****************** Sort Algorithms ******************
 // ----------------------------------------------------------------------------------------------------------------
-
-// Bubble Sort ---------------------------------------
-
-// public int i = 0;
-// public int j = 0;
-
-public void bubbleSort() {
-	
-	if(!bubble.isSorted()) {
-
-		if(i < arrayLength - 1) {
-			wait(waitLengthMilliseconds);
-			background(255);
-			bubble.draw();
-			bubble.drawSelectedBar(i);
-			bubble.sort(i);
-			i++;
-		}
-		if(i == arrayLength - 1)
-			i = 0;
-	} else {
-		background(255);
-		bubble.draw();
-		bubble.printArray();
-		println("Array Sorted!");
-		noLoop();
-	}
-}// bubbleSort
-
-// Selection Sort ---------------------------------------
-
-// public int i = 0;
-// public int j = 0;
-
-public void selectionSort() {
-	
-	if(!selection.isSorted()) {
-		
-		wait(waitLengthMilliseconds);
-		if(i<arrayLength) {
-			if(j == 0) {
-				selection.setMinIndex(i);
-				j = i + 1;
-			}
-			if(j<arrayLength) {
-				selection.findMinIndex(j);
-				background(255);
-				selection.draw();
-				selection.drawSelectedBar();
-				selection.drawSelectedBar(j);
-				j++;
-			} else if(j == arrayLength) {
-				background(255);
-				selection.draw();
-				selection.move(i);
-				println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				j = 0;
-				i++;
-			}
-		} else if(i == arrayLength - 1) {
-			println("borked");
-		}
-
-	} else {
-		background(255);
-		selection.draw();
-		selection.printArray();
-		println("Array Sorted!");
-		noLoop();
-	}
-}// selectionSort
-
-// Insertion Sort ---------------------------------------
-
-public int i = 1;
-public int j = 0;
-
-public void insertionSort() {
-	
-	if(!insertion.isSorted()) {
-
-		wait(waitLengthMilliseconds);
-
-		if(i < arrayLength) {
-
-			// println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-			// insertion.printArray();
-
-			if(insertion.isRangeSorted(i)|| i == 1 || j <= -1) {
-				insertion.setKey(i);
-				j = i - 1;
-			}
-
-			if(j >= 0 && insertion.getArrayElement(j) > insertion.getKey()) {
-				insertion.setArrayElement(j);
-
-				background(255);
-				insertion.draw();
-				insertion.drawKeyBar(j);
-				insertion.drawSelectedBar(i);
-				height -= 1;
-				j -= 1;
-			}
-			
-
-			// println("");
-			// println("I:" + i);
-			// println("J:" + j);
-			// println("Key:" + insertion.getKey());
-			// println("");
-
-
-			insertion.setArrayElementToKey(j);
-
-			if(insertion.isRangeSorted(i)) {
-				i++;
-			}
-		}
-			
-		//insertion.sort();
-	} else {
-		background(255);
-		insertion.draw();
-		insertion.printArray();
-		println("Array Sorted!");
-		noLoop();
-	}
-}// insertionSort
 
 // Merge Sort ---------------------------------------
 
