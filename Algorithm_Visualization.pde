@@ -39,20 +39,14 @@ public void settings() {
 
 public void setup() {
 	// Sets framerate
-	frameRate(60);
+	frameRate(3000);
 
 	// Set title of window and make it resizavble
 	surface.setTitle("Algorithm Visualization");
 	surface.setResizable(true);
 
-	// Set array of numbers from 1 - arrayLength
-	setArray();
-
-	// Shuffle array
-	shuffleArray(array);
-
-	// Print array
-	printArray(array);
+	// Initializes Array
+	initializeArray();
 
 	// Initializes Sorts
 	bubble = new BubbleSort(array, screenWidth, screenHeight);
@@ -86,12 +80,6 @@ public void sort() {
 	}
 }
 
-public void drawFramerate() {
-	fill(10);
-	textSize(16);
-	text("Frame rate: " + int(frameRate), 10, 30);
-}
-
 public void wait(int ms) {
 	try {
 		Thread.sleep(ms);
@@ -100,9 +88,26 @@ public void wait(int ms) {
 	}
 }// wait
 
+public void drawFramerate() {
+	fill(10);
+	textSize(16);
+	text("Frame rate: " + int(frameRate), 10, 30);
+}
+
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Create and Shuffle Array ******************
 // ----------------------------------------------------------------------------------------------------------------
+
+public void initializeArray() {
+	// Set array of numbers from 1 - arrayLength
+	setArray();
+
+	// Shuffle array
+	shuffleArray(array);
+
+	// Print array
+	printArray();
+}
 
 public void setArray() {
 	this.array = new int[arrayLength];
@@ -122,30 +127,6 @@ public void shuffleArray(int[] array) {
 	}
 }
 
-public void printArray(int[] array) {
+public void printArray() {
 	println(Arrays.toString(array));
 }
-
-// ----------------------------------------------------------------------------------------------------------------
-//  ****************** Sort Algorithms ******************
-// ----------------------------------------------------------------------------------------------------------------
-
-// Merge Sort ---------------------------------------
-
-// Global variables for pseudo for loop
-// public int i = 1;
-// public int j = 0;
-
-// public void mergeSort() {
-	
-//   if(!merge.isSorted()) {
-
-		
-//   } else {
-//     background(255);
-//     merge.draw();
-//     merge.printArray();
-//     println("Array Sorted!");
-//     noLoop();
-//   }
-// } // mergeSort
