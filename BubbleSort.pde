@@ -4,9 +4,9 @@ public class BubbleSort {
 
 	// Fields
 	private int[] array;
+	private int screenHeight;
 	private float barHeight;
 	private float barWidth;
-	private int screenHeight;
 	private final int MARGIN = 10;
 
 
@@ -60,7 +60,7 @@ public class BubbleSort {
 	}// printArray
 
 // ----------------------------------------------------------------------------------------------------------------
-//  ****************** ???????????? ******************
+//  ****************** Show & Sort Methods ******************
 // ----------------------------------------------------------------------------------------------------------------
 
 	// I and J for pseudo for loop
@@ -124,15 +124,6 @@ public class BubbleSort {
 		}
 	}// drawBars
 
-	private void drawBarNumbers() {
-		fill(40);
-		textSize(10);
-		for (int i = 0; i < array.length; i++) {
-			setBarHeight(i);
-			text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight() - 20);
-		}
-	}// drawBars
-
 	private void drawSelectedBar(int i) {
 		fill(255,0,0);
 		stroke(0);
@@ -141,5 +132,14 @@ public class BubbleSort {
 		setBarHeight(i);
 		rect(i*barWidth+i*MARGIN + MARGIN, screenHeight, i*barWidth+i*MARGIN + MARGIN+barWidth, screenHeight - getBarHeight());
 	}// drawSelectedBar
+
+	private void drawBarNumbers() {
+		fill(40);
+		textSize(10);
+		for (int i = 0; i < array.length; i++) {
+			setBarHeight(i);
+			text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight() - 20);
+		}
+	}// drawBarNumbers
 
 }// BubbleSort
