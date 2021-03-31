@@ -4,17 +4,17 @@ import java.util.*;
 // ----------------------------------------------------------------------------------------------------------------
 
 // Window Size Desktop
-// public int screenWidth = 2000;
-// public int screenHeight = 1000;
+public int screenWidth = 2000;
+public int screenHeight = 1000;
 
 // Window Size Laptop
-public int screenWidth = 900;
-public int screenHeight = 600;
+// public int screenWidth = 900;
+// public int screenHeight = 600;
 
 // Sort settings
-public boolean bubbleSort = false;
+public boolean bubbleSort = true;
 public boolean selectionSort = false;
-public boolean insertionSort = true;
+public boolean insertionSort = false;
 public boolean mergeSort = false;
 public int[] array;
 public int arrayLength = 50;
@@ -39,7 +39,7 @@ public void settings() {
 
 public void setup() {
 	// Sets framerate
-	frameRate(144);
+	frameRate(60);
 
 	// Set title of window and make it resizavble
 	surface.setTitle("Algorithm Visualization");
@@ -50,6 +50,9 @@ public void setup() {
 
 	// Shuffle array
 	shuffleArray(array);
+
+	// Print array
+	printArray(array);
 
 	// Initializes Sorts
 	bubble = new BubbleSort(array, screenWidth, screenHeight);
@@ -67,12 +70,15 @@ public void draw() {
 }
 
 public void sort() {
+	
+	wait(waitLengthMilliseconds);
+	
 	if (bubbleSort == true) {
-        bubble.sort();
+        bubble.show();
 	} else if (selectionSort == true) {
-        selection.sort();
+        selection.show();
 	} else if (insertionSort == true) {
-		insertion.sort();
+		insertion.show();
 	} else if (mergeSort == true) {
 		// mergeSort();
 	} else {
@@ -85,6 +91,14 @@ public void drawFramerate() {
 	textSize(16);
 	text("Frame rate: " + int(frameRate), 10, 30);
 }
+
+public void wait(int ms) {
+	try {
+		Thread.sleep(ms);
+	} catch(InterruptedException ex) {
+		Thread.currentThread().interrupt();
+	}
+}// wait
 
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Create and Shuffle Array ******************
@@ -106,6 +120,10 @@ public void shuffleArray(int[] array) {
 		array[randomIndexToSwap] = array[i];
 		array[i] = temp;
 	}
+}
+
+public void printArray(int[] array) {
+	println(Arrays.toString(array));
 }
 
 // ----------------------------------------------------------------------------------------------------------------
