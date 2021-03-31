@@ -164,7 +164,7 @@ public class InsertionSort {
 		background(255);
 		drawBarNumbers();
 		drawBars();
-	}// draw
+	}// drawSorted
 
 	private void drawBars() {
 		fill(0,0,255);
