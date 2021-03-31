@@ -73,4 +73,26 @@ public class MergeSort {
 		}
 		
 	}
+
+	public void show() {
+		// Merge Sort ---------------------------------------
+
+// Global variables for pseudo for loop
+// public int i = 1;
+// public int j = 0;
+
+// public void mergeSort() {
+	
+//   if(!merge.isSorted()) {
+
+		
+//   } else {
+//     background(255);
+//     merge.draw();
+//     merge.printArray();
+//     println("Array Sorted!");
+//     noLoop();
+//   }
+// } // mergeSort
+	}
 }// MergeSort
