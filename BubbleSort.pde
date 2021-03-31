@@ -32,7 +32,7 @@ public class BubbleSort {
 		this.screenHeight = screenHeight;
 	}// setScreenHeight
 
-	public void setBarHeight(int i) {
+	private void setBarHeight(int i) {
 		this.barHeight = array[i] * (int) barWidth/2;
 	}// setBarHeight
 
@@ -47,22 +47,21 @@ public class BubbleSort {
 	public int[] getArray() {
 		return array;
 	}// getArray
-	
-// ----------------------------------------------------------------------------------------------------------------
-//  ****************** ???????????? ******************
-// ----------------------------------------------------------------------------------------------------------------
 
-	private void printArray(int[] array) {
+	public boolean isSorted() {
+		for (int i = 0; i < array.length - 1; i++)
+			if (array[i] > array[i + 1])
+				return false;
+		return true;
+	}// isSorted
+	
+	public void printArray() {
 		println(Arrays.toString(array));
 	}// printArray
 
-	private boolean isSorted() {
-		for (int i = 0; i < array.length - 1; i++) {
-			if (array[i] > array[i + 1])
-				return false;
-		}
-		return true;
-	}// isSorted
+// ----------------------------------------------------------------------------------------------------------------
+//  ****************** ???????????? ******************
+// ----------------------------------------------------------------------------------------------------------------
 
 	// I and J for pseudo for loop
 	private int i = 0;
@@ -85,7 +84,7 @@ public class BubbleSort {
 		
 		} else {
 			drawSorted();
-			printArray(getArray());
+			printArray();
 			println("Array Sorted!");
 			noLoop();
 		}
@@ -128,7 +127,7 @@ public class BubbleSort {
 	private void drawBarNumbers() {
 		fill(40);
 		textSize(10);
-		for (int i = 0; i < array.length; i++){
+		for (int i = 0; i < array.length; i++) {
 			setBarHeight(i);
 			text(String.valueOf(array[i]), i*barWidth+i*MARGIN + barWidth/2, screenHeight - getBarHeight() - 20);
 		}
