@@ -12,8 +12,8 @@ public int screenHeight = 1000;
 // public int screenHeight = 600;
 
 // Sort settings
-public boolean bubbleSort = true;
-public boolean selectionSort = false;
+public boolean bubbleSort = false;
+public boolean selectionSort = true;
 public boolean insertionSort = false;
 public boolean mergeSort = false;
 public int[] array;
@@ -35,11 +35,11 @@ public void settings() {
 	
 	// Fix for linux laptop
 	System.setProperty("jogl.disable.openglcore", "false");
-}
+}// settings
 
 public void setup() {
 	// Sets framerate
-	frameRate(3000);
+	frameRate(144);
 
 	// Set title of window and make it resizavble
 	surface.setTitle("Algorithm Visualization");
@@ -56,12 +56,12 @@ public void setup() {
 
 	// Sets background color to white
 	background(255);
-}
+}// setup
 
 public void draw() {
 	sort();
 	drawFramerate();
-}
+}// draw
 
 public void sort() {
 	
@@ -78,7 +78,7 @@ public void sort() {
 	} else {
 		println("broken");
 	}
-}
+}// sort
 
 public void wait(int ms) {
 	try {
@@ -92,7 +92,7 @@ public void drawFramerate() {
 	fill(10);
 	textSize(16);
 	text("Frame rate: " + int(frameRate), 10, 30);
-}
+}// drawFramerate
 
 // ----------------------------------------------------------------------------------------------------------------
 //  ****************** Create and Shuffle Array ******************
@@ -107,13 +107,13 @@ public void initializeArray() {
 
 	// Print array
 	printArray();
-}
+}// initializeArray
 
 public void setArray() {
 	this.array = new int[arrayLength];
 		for (int i = 0;i < array.length;i++)
 			this.array[i] = i + 1;
-}
+}// setArray
 
 // https://www.journaldev.com/32661/shuffle-array-java
 public void shuffleArray(int[] array) {
@@ -125,8 +125,8 @@ public void shuffleArray(int[] array) {
 		array[randomIndexToSwap] = array[i];
 		array[i] = temp;
 	}
-}
+}// shuffleArray
 
 public void printArray() {
 	println(Arrays.toString(array));
-}
+}// printArray
