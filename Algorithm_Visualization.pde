@@ -4,17 +4,17 @@ import java.util.*;
 // ----------------------------------------------------------------------------------------------------------------
 
 // Window Size Desktop
-public int screenWidth = 2000;
-public int screenHeight = 1000;
+// public int screenWidth = 2000;
+// public int screenHeight = 1000;
 
 // Window Size Laptop
-// public int screenWidth = 900;
-// public int screenHeight = 600;
+public int screenWidth = 950;
+public int screenHeight = 600;
 
 // Sort settings
 public boolean bubbleSort = false;
-public boolean selectionSort = true;
-public boolean insertionSort = false;
+public boolean selectionSort = false;
+public boolean insertionSort = true;
 public boolean mergeSort = false;
 public int[] array;
 public int arrayLength = 50;

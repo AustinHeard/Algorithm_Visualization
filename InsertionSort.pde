@@ -36,14 +36,10 @@ public class InsertionSort {
 	}// setScreenHeight
 
 	private void setBarHeight(int i) {
-		if (i == 50)
-			i = 49;
 		this.barHeight = array[i] * (int) barWidth/2;
 	}// setBarHeight
 
 	private void setKeyBarHeight(int key) {
-		if (i == 50)
-			i = 49;
 		this.keyBarHeight = key * (int) barWidth/2;
 	}// setKeyBarHeight
 
@@ -118,6 +114,7 @@ public class InsertionSort {
 	private int j = 0;
 
 	public void show() {
+    println("I = " + i);
 		if(!isSorted()) {
 			background(255);
 			draw();
