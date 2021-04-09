@@ -114,7 +114,6 @@ public class InsertionSort {
 	private int j = 0;
 
 	public void show() {
-    println("I = " + i);
 		if(!isSorted()) {
 			background(255);
 			draw();

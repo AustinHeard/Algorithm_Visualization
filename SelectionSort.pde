@@ -39,8 +39,6 @@ public class SelectionSort {
 	}// setMinIndex
 
 	private void setBarHeight(int i) {
-		if (i == 50)
-			i = 49;
 		this.barHeight = array[i] * (int) barWidth/2;
 	}// setBarHeight
 
