@@ -79,24 +79,25 @@ public class SelectionSort {
 	public void show() {
 	
 		if(!isSorted()) {
-			background(255);
-			draw();
-			if(i<arrayLength) {
+			if(i<array.length) {
 				if(j == 0) {
 					setMinIndex(i);
 					j = i + 1;
 				}
-				if(j<arrayLength) {
+				if(j<array.length) {
 					findMinIndex(j);
 					j++;
-				} else if(j == arrayLength) {
+				}
+				if(j == array.length) {
 					move(i);
 					j = 0;
 					i++;
 				}
-			} else if(i == arrayLength - 1)
+			} else if(i == array.length - 1)
 				println("borked");
 
+			background(255);
+			draw();
 		} else {
 			background(255);
 			drawSorted();
